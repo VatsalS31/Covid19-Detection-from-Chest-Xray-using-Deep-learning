@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PneumoScan19</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5; /* Light gray background */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+      }
+      header {
+        width: 100%;
+        background-color: #3498db; /* Light blue */
+        color: #ffffff; /* White text */
+        padding: 15px 0;
+        text-align: center;
+        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+      }
+      nav {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start; /* Align to the left */
+        background-color: #2980b9; /* Darker blue */
+        padding: 10px 20px; /* Padding adjusted */
+      }
+      nav a {
+        color: #ffffff; /* White text */
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        border-radius: 4px;
+        padding: 10px 15px; /* Adjusted padding */
+        display: inline-block; /* Display links inline */
+      }
+      nav a:hover {
+        background-color: #1abc9c; /* Light green on hover */
+      }
+      .dropdown {
+        position: relative; /* Set dropdown as a relative position */
+        display: inline-block; /* Display dropdown inline */
+      }
+      .contributors {
+        display: none;
+        position: absolute; /* Position contributors dropdown absolutely */
+        left: 0; /* Shift dropdown to the left */
+        background-color: #ffffff;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+        z-index: 1; /* Ensure visibility over other elements */
+      }
+      .dropdown:hover .contributors {
+        display: block; /* Show contributors on hover */
+      }
+      .contributors a {
+        display: block;
+        margin-top: 5px;
+        text-decoration: none;
+        color: #333333; /* Dark gray text */
+        transition: color 0.3s ease;
+        font-weight: bold;
+        padding: 10px; /* Adjust padding */
+      }
+      .contributors a:hover {
+        color: #555555; /* Slightly lighter text on hover */
+      }
+      #upload-form {
+        background-color: #ffffff; /* White form background */
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+        margin-top: 20px;
+      }
+      h1 {
+        margin-top: 0;
+        color: #333333; /* Dark gray text */
+      }
+      input[type="file"] {
+        margin-bottom: 10px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      input[type="submit"] {
+        background-color: #3498db; /* Blue button */
+        color: #ffffff; /* White text */
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      input[type="submit"]:hover {
+        background-color: #2980b9; /* Darker blue on hover */
+      }
+      .result {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+      .result.positive {
+        color: #e74c3c; /* Red for positive result */
+      }
+      .result.negative {
+        color: #2ecc71; /* Green for negative result */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>COVID-19 Detection using X-ray</h1>
+      <nav>
+        <div class="dropdown">
+          <a href="#" class="dropbtn">Contributors</a>
+          <div class="contributors" id="contributors">
+            <a
+              href="https://www.linkedin.com/in/vatsal-shah-528412218/"
+              target="_blank"
+              >Vatsal</a>
+            <a href="https://www.linkedin.com/" target="_blank">Rohit</a>
+            <a href="https://www.linkedin.com/" target="_blank">Harsh</a>
+            <a href="https://www.linkedin.com/" target="_blank">Tej</a>
+            <!-- Add more contributors with LinkedIn profile links -->
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div id="upload-form">
+      <h1>Upload Chest X-ray Image</h1>
+      <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <br />
+        <input type="submit" value="Upload" />
+      </form>
+      {% if result %}
+      <div
+        class="result {% if result == 'COVID Positive' %}positive{% elif result == 'COVID Negative' %}negative{% endif %}"
+      >
+        <h2>Result: {{ result }}</h2>
+      </div>
+      {% endif %}
+    </div>
+    <script>
+      document
+        .querySelectorAll(".dropbtn")[0]
+        .addEventListener("click", function () {
+          var dropdownContent = document.getElementById("contributors");
+          if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+          } else {
+            dropdownContent.style.display = "block";
+          }
+        });
+    </script>
+  </body>
+</html>
